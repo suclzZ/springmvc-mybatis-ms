@@ -10,7 +10,7 @@ import javax.servlet.Filter;
  * @author sucl
  * @since 2019/3/21
  */
-public class WebXmlInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     /*
      * DispatcherServlet的映射路径
      */
@@ -24,14 +24,13 @@ public class WebXmlInitializer extends AbstractAnnotationConfigDispatcherServlet
      */
     @Override
     protected Class[] getRootConfigClasses() {
-        //加载配置文件类，这里与上面的xml配置是对应的，需要使用@Configuration注解进行标注，稍后介绍
+        //加载配置文件类，这里与上面的xml配置是对应的，需要使用@Configuration注解进行标注
         return new Class[] {RootConfig.class};
     }
 
     /*
      * web上下文
      */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     protected Class[] getServletConfigClasses() {
         return new Class[] {ServletConfig.class};
