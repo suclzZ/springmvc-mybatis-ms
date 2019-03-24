@@ -6,7 +6,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import javax.servlet.Filter;
 
 /**
- * un web.xml
+ * web.xml
  * @author sucl
  * @since 2019/3/21
  */
