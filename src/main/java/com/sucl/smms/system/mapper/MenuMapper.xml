@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.sucl.smms.system.mapper.MenuMapper" >
-  <resultMap id="BaseResultMap" type="com.sucl.smms.system.model.Menu" >
-    <id column="MENU_ID" property="menuId" jdbcType="VARCHAR" />
-    <result column="LEAF" property="leaf" jdbcType="BIT" />
-    <result column="MENU_CAPTION" property="menuCaption" jdbcType="VARCHAR" />
-    <result column="MENU_CODE" property="menuCode" jdbcType="VARCHAR" />
-    <result column="PARENT_MENU_CODE" property="parentMenuCode" jdbcType="VARCHAR" />
-    <result column="PATH" property="path" jdbcType="VARCHAR" />
-    <result column="STYLE" property="style" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sucl.smms.system.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.sucl.smms.system.model.Menu">
+    <id column="MENU_ID" jdbcType="VARCHAR" property="menuId" />
+    <result column="LEAF" jdbcType="BIT" property="leaf" />
+    <result column="MENU_CAPTION" jdbcType="VARCHAR" property="menuCaption" />
+    <result column="MENU_CODE" jdbcType="VARCHAR" property="menuCode" />
+    <result column="PARENT_MENU_CODE" jdbcType="VARCHAR" property="parentMenuCode" />
+    <result column="PATH" jdbcType="VARCHAR" property="path" />
+    <result column="STYLE" jdbcType="VARCHAR" property="style" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     MENU_ID, LEAF, MENU_CAPTION, MENU_CODE, PARENT_MENU_CODE, PATH, STYLE
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from menu
     where MENU_ID = #{menuId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from menu
     where MENU_ID = #{menuId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.sucl.smms.system.model.Menu" >
+  <insert id="insert" parameterType="com.sucl.smms.system.model.Menu">
     insert into menu (MENU_ID, LEAF, MENU_CAPTION, 
       MENU_CODE, PARENT_MENU_CODE, PATH, 
       STYLE)
@@ -31,80 +31,80 @@
       #{menuCode,jdbcType=VARCHAR}, #{parentMenuCode,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
       #{style,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.sucl.smms.system.model.Menu" >
+  <insert id="insertSelective" parameterType="com.sucl.smms.system.model.Menu">
     insert into menu
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="menuId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="menuId != null">
         MENU_ID,
       </if>
-      <if test="leaf != null" >
+      <if test="leaf != null">
         LEAF,
       </if>
-      <if test="menuCaption != null" >
+      <if test="menuCaption != null">
         MENU_CAPTION,
       </if>
-      <if test="menuCode != null" >
+      <if test="menuCode != null">
         MENU_CODE,
       </if>
-      <if test="parentMenuCode != null" >
+      <if test="parentMenuCode != null">
         PARENT_MENU_CODE,
       </if>
-      <if test="path != null" >
+      <if test="path != null">
         PATH,
       </if>
-      <if test="style != null" >
+      <if test="style != null">
         STYLE,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="menuId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="menuId != null">
         #{menuId,jdbcType=VARCHAR},
       </if>
-      <if test="leaf != null" >
+      <if test="leaf != null">
         #{leaf,jdbcType=BIT},
       </if>
-      <if test="menuCaption != null" >
+      <if test="menuCaption != null">
         #{menuCaption,jdbcType=VARCHAR},
       </if>
-      <if test="menuCode != null" >
+      <if test="menuCode != null">
         #{menuCode,jdbcType=VARCHAR},
       </if>
-      <if test="parentMenuCode != null" >
+      <if test="parentMenuCode != null">
         #{parentMenuCode,jdbcType=VARCHAR},
       </if>
-      <if test="path != null" >
+      <if test="path != null">
         #{path,jdbcType=VARCHAR},
       </if>
-      <if test="style != null" >
+      <if test="style != null">
         #{style,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.sucl.smms.system.model.Menu" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.sucl.smms.system.model.Menu">
     update menu
-    <set >
-      <if test="leaf != null" >
+    <set>
+      <if test="leaf != null">
         LEAF = #{leaf,jdbcType=BIT},
       </if>
-      <if test="menuCaption != null" >
+      <if test="menuCaption != null">
         MENU_CAPTION = #{menuCaption,jdbcType=VARCHAR},
       </if>
-      <if test="menuCode != null" >
+      <if test="menuCode != null">
         MENU_CODE = #{menuCode,jdbcType=VARCHAR},
       </if>
-      <if test="parentMenuCode != null" >
+      <if test="parentMenuCode != null">
         PARENT_MENU_CODE = #{parentMenuCode,jdbcType=VARCHAR},
       </if>
-      <if test="path != null" >
+      <if test="path != null">
         PATH = #{path,jdbcType=VARCHAR},
       </if>
-      <if test="style != null" >
+      <if test="style != null">
         STYLE = #{style,jdbcType=VARCHAR},
       </if>
     </set>
     where MENU_ID = #{menuId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.sucl.smms.system.model.Menu" >
+  <update id="updateByPrimaryKey" parameterType="com.sucl.smms.system.model.Menu">
     update menu
     set LEAF = #{leaf,jdbcType=BIT},
       MENU_CAPTION = #{menuCaption,jdbcType=VARCHAR},

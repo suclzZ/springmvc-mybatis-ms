@@ -5,16 +5,17 @@
 
 <generatorConfiguration>
     <!--<classPathEntry location="C:\Users\ASUS\.m2\repository\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar"/>-->
-    <context id="my" targetRuntime="MyBatis3">
+    <properties resource="config/config-jdbc.properties"/>
+    <context id="mySql" targetRuntime="MyBatis3">
         <commentGenerator>
             <property name="suppressDate" value="false"/>
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
 
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/ms"
-                        userId="ms"
-                        password="123456"/>
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}"/>
 
         <javaModelGenerator targetPackage="com.sucl.smms.system.model"
                             targetProject="./src/main/java">
