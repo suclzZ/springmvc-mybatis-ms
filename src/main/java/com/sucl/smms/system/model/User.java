@@ -3,25 +3,25 @@ package com.sucl.smms.system.model;
 public class User {
     private String userId;
 
-    private String birthday;
-
-    private String description;
-
-    private String email;
-
     private String loginName;
+
+    private String userCaption;
 
     private String password;
 
-    private String qq;
+    private String birthday;
 
     private String telephone;
 
-    private String userCaption;
+    private String email;
+
+    private String qq;
 
     private String weixin;
 
     private String agencyId;
+
+    private String description;
 
     public String getUserId() {
         return userId;
@@ -29,30 +29,6 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId == null ? null : userId.trim();
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday == null ? null : birthday.trim();
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
     }
 
     public String getLoginName() {
@@ -63,6 +39,14 @@ public class User {
         this.loginName = loginName == null ? null : loginName.trim();
     }
 
+    public String getUserCaption() {
+        return userCaption;
+    }
+
+    public void setUserCaption(String userCaption) {
+        this.userCaption = userCaption == null ? null : userCaption.trim();
+    }
+
     public String getPassword() {
         return password;
     }
@@ -71,12 +55,12 @@ public class User {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getQq() {
-        return qq;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public void setQq(String qq) {
-        this.qq = qq == null ? null : qq.trim();
+    public void setBirthday(String birthday) {
+        this.birthday = birthday == null ? null : birthday.trim();
     }
 
     public String getTelephone() {
@@ -87,12 +71,20 @@ public class User {
         this.telephone = telephone == null ? null : telephone.trim();
     }
 
-    public String getUserCaption() {
-        return userCaption;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserCaption(String userCaption) {
-        this.userCaption = userCaption == null ? null : userCaption.trim();
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq == null ? null : qq.trim();
     }
 
     public String getWeixin() {
@@ -109,5 +101,13 @@ public class User {
 
     public void setAgencyId(String agencyId) {
         this.agencyId = agencyId == null ? null : agencyId.trim();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 }

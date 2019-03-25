@@ -7,6 +7,7 @@ import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.exception.InvalidConfigurationException;
 import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.DefaultShellCallback;
+import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,12 +18,13 @@ import java.util.List;
 public class CodeGenerator {
 
     public static void main(String[] args) throws IOException, XMLParserException, InvalidConfigurationException, SQLException, InterruptedException {
-        File file = new File("src\\main\\resources\\generatorConfig.xml");
+        File file = ResourceUtils.getFile("classpath:generatorConfig.xml");
         List<String> warns = new ArrayList<String>();
         ConfigurationParser configurationParser = new ConfigurationParser(warns);
         Configuration configuration = configurationParser.parseConfiguration(file);
         ShellCallback callback = new DefaultShellCallback(true);
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(configuration,callback,warns);
         myBatisGenerator.generate(null);
+
     }
 }

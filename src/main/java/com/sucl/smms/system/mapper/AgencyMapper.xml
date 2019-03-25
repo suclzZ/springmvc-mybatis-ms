@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sucl.smms.system.mapper.AgencyMapper">
+  <resultMap id="BaseResultMap" type="com.sucl.smms.system.model.Agency">
+    <id column="AGENCY_ID" jdbcType="VARCHAR" property="agencyId" />
+    <result column="AGENCY_CODE" jdbcType="VARCHAR" property="agencyCode" />
+    <result column="AGENCY_NAME" jdbcType="VARCHAR" property="agencyName" />
+    <result column="DUTY" jdbcType="VARCHAR" property="duty" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.sucl.smms.system.model.Agency">
+    <result column="DESCRIPTION" jdbcType="LONGVARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    AGENCY_ID, AGENCY_CODE, AGENCY_NAME, DUTY
+  </sql>
+  <sql id="Blob_Column_List">
+    DESCRIPTION
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from agency
+    where AGENCY_ID = #{agencyId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from agency
+    where AGENCY_ID = #{agencyId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.sucl.smms.system.model.Agency">
+    insert into agency (AGENCY_ID, AGENCY_CODE, AGENCY_NAME, 
+      DUTY, DESCRIPTION)
+    values (#{agencyId,jdbcType=VARCHAR}, #{agencyCode,jdbcType=VARCHAR}, #{agencyName,jdbcType=VARCHAR}, 
+      #{duty,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sucl.smms.system.model.Agency">
+    insert into agency
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="agencyId != null">
+        AGENCY_ID,
+      </if>
+      <if test="agencyCode != null">
+        AGENCY_CODE,
+      </if>
+      <if test="agencyName != null">
+        AGENCY_NAME,
+      </if>
+      <if test="duty != null">
+        DUTY,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="agencyId != null">
+        #{agencyId,jdbcType=VARCHAR},
+      </if>
+      <if test="agencyCode != null">
+        #{agencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="agencyName != null">
+        #{agencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null">
+        #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sucl.smms.system.model.Agency">
+    update agency
+    <set>
+      <if test="agencyCode != null">
+        AGENCY_CODE = #{agencyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="agencyName != null">
+        AGENCY_NAME = #{agencyName,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null">
+        DUTY = #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where AGENCY_ID = #{agencyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.sucl.smms.system.model.Agency">
+    update agency
+    set AGENCY_CODE = #{agencyCode,jdbcType=VARCHAR},
+      AGENCY_NAME = #{agencyName,jdbcType=VARCHAR},
+      DUTY = #{duty,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=LONGVARCHAR}
+    where AGENCY_ID = #{agencyId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sucl.smms.system.model.Agency">
+    update agency
+    set AGENCY_CODE = #{agencyCode,jdbcType=VARCHAR},
+      AGENCY_NAME = #{agencyName,jdbcType=VARCHAR},
+      DUTY = #{duty,jdbcType=VARCHAR}
+    where AGENCY_ID = #{agencyId,jdbcType=VARCHAR}
+  </update>
+</mapper>

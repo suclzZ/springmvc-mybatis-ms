@@ -1,6 +1,8 @@
 package com.sucl.smms.config;
 
+import com.github.pagehelper.PageInterceptor;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -12,9 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
-import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
-import java.sql.Driver;
+import java.util.Properties;
 
 /**
  * 排除的时候还需要排除其他@ComponentScan的类
@@ -25,7 +26,7 @@ import java.sql.Driver;
 @Configuration
 @EnableTransactionManagement
 @MapperScan("com.sucl.smms.*.mapper")
-//@PropertySource(value = "classpath:config/config-*.properties")
+@PropertySource(value = "classpath:config/config-jdbc.properties")
 @ComponentScan(value = "com.sucl.smms",useDefaultFilters = true,
                 excludeFilters = {
                     @ComponentScan.Filter({Controller.class,ControllerAdvice.class})
@@ -37,12 +38,11 @@ public class RootConfig {
     @Autowired
     private Environment env;
 
-    @Bean
-    public DataSource dataSource(){
+    @Bean(value = "dataSource",destroyMethod = "close")
+    public ComboPooledDataSource dataSource(){
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
         try {
-//            dataSource.setDriverClass(env.getProperty("jdbc.driverClass"));
-            dataSource.setDriverClass(Driver.class.getName());
+            dataSource.setDriverClass(env.getProperty("jdbc.driverClass"));
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         }
@@ -57,10 +57,29 @@ public class RootConfig {
     public SqlSessionFactory sqlSessionFactoryBean() throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource());
-        sqlSessionFactoryBean.setMapperLocations(null);
+//        sqlSessionFactoryBean.setMapperLocations(null);
 //        sqlSessionFactoryBean.setConfigLocation();
         sqlSessionFactoryBean.setTypeAliasesPackage("com.sucl.smms.*.model");
+
+        Interceptor[] plugins = new Interceptor[]{pageInterceptor()};
+        sqlSessionFactoryBean.setPlugins(plugins);
         return sqlSessionFactoryBean.getObject();
+    }
+
+    private Interceptor pageInterceptor() {
+        PageInterceptor pageInterceptor = new PageInterceptor();
+        Properties properties = new Properties();;
+//        RelaxedPropertyResolver resolver = new RelaxedPropertyResolver(env, "pagehelper.");
+//        Map<String, Object> subProperties = resolver.getSubProperties("");
+//        for (String key : subProperties.keySet()) {
+//            properties.setProperty(key, resolver.getProperty(key));
+//        }
+        properties.setProperty("helperDialect","mysql");
+        properties.setProperty("reasonable","true");
+        properties.setProperty("supportMethodsArguments","true");
+        properties.setProperty("params","count=countSql");
+        pageInterceptor.setProperties(properties);
+        return pageInterceptor;
     }
 
     @Bean("transactionManager")

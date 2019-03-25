@@ -1,16 +1,41 @@
 package com.sucl.smms.system.service.impl;
 
 import com.sucl.smms.system.service.BaseService;
-import org.springframework.stereotype.Service;
 
-@Service
-public class BaseServiceImpl implements BaseService {
+import javax.annotation.Resource;
+import java.io.Serializable;
 
-    public BaseServiceImpl(){
-        System.out.println("baseServiceLmpl");
+public class BaseServiceImpl<T , PK extends Serializable> implements BaseService {
+    @Resource
+    private T baseMapper;
+
+    @Override
+    public int deleteByPrimaryKey(Serializable serializable) {
+        return 0;
     }
 
-    public void save() {
-        System.out.println(" invoke save ");
+    @Override
+    public int insert(Object record) {
+        return 0;
+    }
+
+    @Override
+    public int insertSelective(Object record) {
+        return 0;
+    }
+
+    @Override
+    public Object selectByPrimaryKey(Serializable serializable) {
+        return null;
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(Object record) {
+        return 0;
+    }
+
+    @Override
+    public int updateByPrimaryKey(Object record) {
+        return 0;
     }
 }
