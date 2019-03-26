@@ -20,4 +20,6 @@ public interface UserMapper {
     List<User> selectAll();
 
     List<User> selectByAll(User record);
+
+    void batchDelete(String[] ids);
 }

@@ -5,9 +5,11 @@ import com.sucl.smms.system.model.User;
 import com.sucl.smms.system.service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author sucl
@@ -57,5 +59,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsers(User record) {
         return userMapper.selectByAll(record);
+    }
+
+    @Override
+    public void saveOrUpdate(User user) {
+        boolean update = !StringUtils.isEmpty(user.getUserId());
+        if(update){
+            userMapper.updateByPrimaryKey(user);
+        }else{
+            user.setUserId(UUID.randomUUID().toString());
+            user.setPassword("123456");
+            userMapper.insert(user);
+        }
+    }
+
+    @Override
+    public void batchDelete(String[] ids) {
+        userMapper.batchDelete(ids);
     }
 }

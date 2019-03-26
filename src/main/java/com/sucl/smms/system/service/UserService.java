@@ -25,4 +25,8 @@ public interface UserService {
     List<User> getUsers();
 
     List<User> getUsers(User record);
+
+    void saveOrUpdate(User user);
+
+    void batchDelete(String[] ids);
 }
